@@ -8,7 +8,7 @@ The goals/steps of this project are the following:
 
 * Utilize a Kalman filter to estimate the state of a moving object of interest
 * With noisy RADAR/LIDAR measurements
-* Obtaining RMSE values less than/equal to [.11, .11, 0.52, 0.52].
+* Obtaining RMSE values less than/equal to [.11, .11, 0.52, 0.52]
 
 ### Environment
 
