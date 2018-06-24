@@ -89,7 +89,7 @@ Connected!!!
 Once "ExtendedKF" is running and indicating connection, start the simulator run as shown:
 ![Step #2](./media/images/run-start-1.png)
 
-![Step #3](./media/images/run-start-2.png)
+![Step #3](./media/images/run-stop-1.png)
 
 Video of the entire build/run cycle may be found [here](./media/videos/build-and-run-1.mp4).
 
