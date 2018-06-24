@@ -1,129 +1,163 @@
-# Extended Kalman Filter Project Starter Code
-Self-Driving Car Engineer Nanodegree Program
+**Extended Kalman Filter Project**
 
-In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
+## Writeup
 
-This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
+### Introduction
 
-This repository includes two files that can be used to set up and install [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) for either Linux or Mac systems. For windows you can use either Docker, VMware, or even [Windows 10 Bash on Ubuntu](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) to install uWebSocketIO. Please see [this concept in the classroom](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/16cf4a78-4fc7-49e1-8621-3450ca938b77) for the required version and installation scripts.
+The goals/steps of this project are the following:
 
-Once the install for uWebSocketIO is complete, the main program can be built and run by doing the following from the project top directory.
+* Utilize a kalman filter to estimate the state of a moving object of interest
+* With noisy lidar and radar measurements
+* Obtaining RMSE values less than/equal to [.11, .11, 0.52, 0.52].
 
-1. mkdir build
-2. cd build
-3. cmake ..
-4. make
-5. ./ExtendedKF
+### Environment
 
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
+Minimum execution environment is undefined.
 
-Note that the programs that need to be written to accomplish the project are src/FusionEKF.cpp, src/FusionEKF.h, kalman_filter.cpp, kalman_filter.h, tools.cpp, and tools.h
+Project was developed using the following environment:
 
-The program main.cpp has already been filled out, but feel free to modify it.
+| Category | Item        |
+|----------|-------------|
+| OS       | Windows 10 |
+| CPU      | Intel i7/6800k |
+| RAM      | 64GB |
+| GPU      | nVidia GTX 1060 |
+| VRAM     | 6GB |
+| Storage  | SATA SSD |
+| IDE      | JetBrains CLion (and) Linux for Windows (Ubuntu) |
 
-Here is the main protcol that main.cpp uses for uWebSocketIO in communicating with the simulator.
+### Execution
 
+This capability includes of the following source code files modified for this project:
+* [FusionEKF.cpp](./src/FusionEKF.cpp) implements sensor fusion functionality. Kalman filter initialization and prediction workflow code has been added here.
+* [kamlan_filter.cpp](./src/kamlan_filter.cpp) implements the Kalman filter iteself. Update and prediction code has been added here.
+* [tools.cpp](./src/tools.cpp) implements support capabilities. RMSE and Jacobian matrix code has been added here.
 
-INPUT: values provided by the simulator to the c++ program
+Almost all additions have been derived from project source material.
 
-["sensor_measurement"] => the measurement that the simulator observed (either lidar or radar)
+This remainder of source code/configuration files were provided with the project template.
 
+#### term2_sim.exe
 
-OUTPUT: values provided by the c++ program to the simulator
+A running Term 2 simulator is necessary for evaluation of this capability.
 
-["estimate_x"] <= kalman filter estimated position x
-["estimate_y"] <= kalman filter estimated position y
-["rmse_x"]
-["rmse_y"]
-["rmse_vx"]
-["rmse_vy"]
+##### Obtaining
+
+Obtain the Term 2 simulator via its Github [repo](https://github.com/udacity/self-driving-car-sim/releases/).
+
+##### Running
+
+Once target environment perquisites are met, the simulator may be executed as a standalone application within the OS.
+
+Once the simulator is running, select the "Project 1/2: EKF and UKF" scenario to prepare for evaluation.
+
+![Step #1](./media/images/term2-sim-1.png)
+
+#### ExtendedKF
+
+The capability is built from this project source code as a standalone application named "ExtendedKF".
+
+##### Obtaining / Building
+
+Obtain this capability via its Github [repo](https://github.com/michael-kitchin/CarND-Extended-Kalman-Filter-Project).
+
+Build using OS-specific `cmake` and `make` commands.
+
+Windows build shown (via JetBrains CLion):
+```
+/usr/bin/cmake --build /mnt/[...]/CarND-Extended-Kalman-Filter-Project/cmake-build-debug --target ExtendedKF -- -j 6
+Scanning dependencies of target ExtendedKF
+[ 40%] Building CXX object CMakeFiles/ExtendedKF.dir/src/main.cpp.o
+[ 60%] Building CXX object CMakeFiles/ExtendedKF.dir/src/tools.cpp.o
+[ 80%] Building CXX object CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o
+[ 80%] Building CXX object CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o
+[100%] Linking CXX executable ExtendedKF
+[100%] Built target ExtendedKF
+```
+
+##### Running
+
+Once built, execute "ExtendedKF" from the command line.
+
+Windows execution shown (via JetBrains CLion):
+```
+/mnt/[...]/CarND-Extended-Kalman-Filter-Project/cmake-build-debug/ExtendedKF
+Listening to port 4567
+Connected!!!
+```
+
+Once "ExtendedKF" is running and indicating connection, start the simulator run as shown:
+![Step #2](./media/images/run-start-1.png)
+
+![Step #3](./media/images/run-start-2.png)
+
+Video of the entire build/run cycle may be found [here](./media/videos/build-and-run-1.mp4).
 
 ---
 
-## Other Important Dependencies
+## Rubric Points
 
-* cmake >= 3.5
-  * All OSes: [click here for installation instructions](https://cmake.org/install/)
-* make >= 4.1 (Linux, Mac), 3.81 (Windows)
-  * Linux: make is installed by default on most Linux distros
-  * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
-  * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
-* gcc/g++ >= 5.4
-  * Linux: gcc / g++ is installed by default on most Linux distros
-  * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
-  * Windows: recommend using [MinGW](http://www.mingw.org/)
+### [Rubric Points](https://review.udacity.com/#!/rubrics/748/view) are discussed individually with respect to the implementation.
 
-## Basic Build Instructions
+---
 
-1. Clone this repo.
-2. Make a build directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make` 
-   * On windows, you may need to run: `cmake .. -G "Unix Makefiles" && make`
-4. Run it: `./ExtendedKF `
+### 1. Compiling
 
-## Editor Settings
+#### 1.1 Your code should compile.
 
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
+_Code must compile without errors with cmake and make. Given that we've made CMakeLists.txt as general as possible, it's recommended that you do not change it unless you can guarantee that your changes will still compile on any platform._
 
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
+See instructions and [video](./media/videos/build-and-run-1.mp4), above.
 
-## Code Style
+---
 
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+### 2. Accuracy
 
-## Generating Additional Data
+#### 2.1 px, py, vx, vy output coordinates must have an RMSE <= [0.11, 0.11, 0.52, 0.52] (...).
 
-This is optional!
+_Your algorithm will be run against Dataset 1 in the simulator which is the same as "data/obj_pose-laser-radar-synthetic-input.txt" in the repository. We'll collect the positions that your algorithm outputs and compare them to ground truth data. Your px, py, vx, and vy RMSE should be less than or equal to the values [.11, .11, 0.52, 0.52]._
 
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
+Net accuracy as demonstrated is approximately [0.09, 0.09, 0.45, 0.44].
 
-## Project Instructions and Rubric
+---
 
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
+### 3. Follows the Correct Algorithm
 
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project resources page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/382ebfd6-1d55-4487-84a5-b6a5a4ba1e47)
-for instructions and the project rubric.
+#### 3.1 Your Sensor Fusion algorithm follows the general processing flow (...).
 
-## Hints and Tips!
+_While you may be creative with your implementation, there is a well-defined set of steps that must take place in order to successfully build a Kalman Filter. As such, your project should follow the algorithm as described in the preceding lesson._
 
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-* Students have reported rapid expansion of log files when using the term 2 simulator.  This appears to be associated with not being connected to uWebSockets.  If this does occur,  please make sure you are conneted to uWebSockets. The following workaround may also be effective at preventing large log files.
+[main.cpp](./src/main.cpp) encapsulates the initialize, measure, predict, and repeat process described in preceding lessons as follows:
+1. Receives simulator data packets
+1. Demarshals from JSON
+1. Captures and tailors measurements according to source (RADAR, LIDAR)
+1. Updates Kalman filter and generates predictions
+1. Calculates RMSE based on prediction deviation from measurement
 
-    + create an empty log file
-    + remove write permissions so that the simulator can't write to log
- * Please note that the ```Eigen``` library does not initialize ```VectorXd``` or ```MatrixXd``` objects with zeros upon creation.
+#### 3.2 Your Kalman Filter algorithm handles the first measurements appropriately.
 
-## Call for IDE Profiles Pull Requests
+_Your algorithm should use the first measurements to initialize the state vectors and covariance matrices._
 
-Help your fellow students!
+Initialization is performed in the constructor and `ProcessMeasurement` methods found in [FusionEKF.cpp](./src/FusionEKF.cpp). The `is_initialized_` member variable is used to mediate this initialization.
 
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to ensure
-that students don't feel pressured to use one IDE or another.
+#### 3.3 Your Kalman Filter algorithm first predicts then updates.
 
-However! We'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
+_Upon receiving a measurement after the first, the algorithm should predict object position to the current timestep and then update the prediction using the new measurement._
 
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
+Updates to the state transition matrix are performed in the `ProcessMeasurement` method found in [FusionEKF.cpp](./src/FusionEKF.cpp). Predictions are initiated there and performed in the `Predict` method found in [kalman_filter.cpp](./src/kalman_filter.cpp). Updates are subsequently performed in the `Update` method also found in [kalman_filter.cpp](./src/kalman_filter.cpp).
 
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
+#### 3.4 Your Kalman Filter can handle radar and lidar measurements.
 
-Regardless of the IDE used, every submitted project must
-still be compilable with cmake and make.
+_Your algorithm sets up the appropriate matrices given the type of measurement and calls the correct measurement function for a given sensor type._
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+RADAR/LIDAR measurements are first discriminated by type in [main.cpp](./src/main.cpp), then in terms of prediction matrix and update preparation in the `ProcessMeasurement` method found in [FusionEKF.cpp](./src/FusionEKF.cpp).
 
+---
+
+### 4. Code Efficiency
+
+#### 4.1 Your algorithm should avoid unnecessary calculations.
+
+_This is mostly a "code smell" test. Your algorithm does not need to sacrifice comprehension, stability, robustness or security for speed, however it should maintain good practice with respect to calculations (...)._
+
+This is mitigated by this project's constrained scope -- the structure of the codebase is predefined and core algorithm already developed during preceding lessons. That said, both the provided and developed code exclusively reflect the central use case and compiles, runs, and performs adequately in the target environment.
